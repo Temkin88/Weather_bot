@@ -1,10 +1,15 @@
 import requests
 import datetime
-from config import tg_bot_token, open_weather_token
+import json
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
+
+with open('config.json') as f:
+    templates = json.load(f)
+    open_weather_token = templates["open_weather_token"]
+    tg_bot_token = templates["tg_bot_token"]
 
 bot = Bot(token=tg_bot_token)
 dp = Dispatcher(bot)
