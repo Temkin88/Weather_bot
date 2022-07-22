@@ -58,10 +58,10 @@ class Weather:
             await message.reply(
                   f"Время: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n"
                   f"Погода в городе: {city}\n"
-                  f"Температура: {cur_weather} C° {wd}\n"
+                  f"Температура: {int(cur_weather)} C° {wd}\n"
                   f"Влажность: {humidity}%\n"
-                  f"Давление: {pressure} мм.рт.ст\n"
-                  f"Ветер: {wind} м/с\n"
+                  f"Давление: {int(pressure / 1.333)} мм.рт.ст\n"
+                  f"Ветер: {round(wind, 1)} м/с\n"
                   f"Восход солнца: {sunrise_timestamp}\n"
                   f"Закат солнца: {sunset_timestamp}\n"
                   f"Продолжительность дня: {length_of_the_day}\n"

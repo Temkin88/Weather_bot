@@ -30,7 +30,7 @@ class Weather:
                 f"https://api.openweathermap.org/data/2.5/weather?q={self.city}&appid={self.open_weather_token}&units=metric"
             )
             data = r.json()
-            # pprint(data)
+            pprint(data)
 
             city = data["name"]
             cur_weather = data["main"]["temp"]
@@ -46,14 +46,15 @@ class Weather:
             wind = data["wind"]["speed"]
             sunrise_timestamp = datetime.datetime.fromtimestamp(data["sys"]["sunrise"])
             sunset_timestamp = datetime.datetime.fromtimestamp(data["sys"]["sunset"])
-            length_of_the_day = datetime.datetime.fromtimestamp(data["sys"]["sunset"]) - datetime.datetime.fromtimestamp(data["sys"]["sunrise"])
+            length_of_the_day = datetime.datetime.fromtimestamp(data["sys"]["sunset"]) - datetime.datetime.\
+                fromtimestamp(data["sys"]["sunrise"])
 
             print(f"Время: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n"
                   f"Погода в городе: {city}\n"
-                  f"Температура: {cur_weather} C° {wd}\n"
+                  f"Температура: {int(cur_weather)} C° {wd}\n"
                   f"Влажность: {humidity}%\n"
-                  f"Давление: {pressure} мм.рт.ст\n"
-                  f"Ветер: {wind} м/с\n"
+                  f"Давление: {int(pressure / 1.333)} мм.рт.ст\n"
+                  f"Ветер: {round(wind, 1)} м/с\n"
                   f"Восход солнца: {sunrise_timestamp}\n"
                   f"Закат солнца: {sunset_timestamp}\n"
                   f"Продолжительность дня: {length_of_the_day}\n"
