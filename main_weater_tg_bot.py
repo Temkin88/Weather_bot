@@ -23,6 +23,7 @@ class Weather:
 
     @dp.message_handler()
     async def get_weather(message: types.Message):
+
         code_to_smile = {
             "Clear": "Ясно \U00002600",
             "Clouds": "Облачно \U00002601",

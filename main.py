@@ -13,8 +13,7 @@ class Weather:
         self.city = city
         self.open_weather_token = open_weather_token
 
-    def get_weather(self):
-
+    def code_weather(self, code):
         code_to_smile = {
             "Clear": "Ясно \U00002600",
             "Clouds": "Облачно \U00002601",
@@ -24,20 +23,29 @@ class Weather:
             "Snow": "Снег \U0001F328",
             "Mist": "Туман \U0001F328",
         }
+        return code_to_smile[code]
+
+    def get_request(self, city, token):
+        r = requests.get(
+            f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={token}&units=metric"
+        )
+        return r.json()
+
+    def get_weather(self):
 
         try:
-            r = requests.get(
-                f"https://api.openweathermap.org/data/2.5/weather?q={self.city}&appid={self.open_weather_token}&units=metric"
-            )
-            data = r.json()
+            data = self.get_request(self.city, self.open_weather_token)
             pprint(data)
 
             city = data["name"]
             cur_weather = data["main"]["temp"]
 
             weater_description = data["weather"][0]["main"]
-            if weater_description in code_to_smile:
-                wd = code_to_smile[weater_description]
+
+            code = self.code_weather(weater_description)
+
+            if weater_description in code:
+                wd = code[weater_description]
             else:
                 wd = "роверь погоду за окном, не пойму что там за погода!"
 
